@@ -9,6 +9,8 @@
 #define RAND_INCREMENT 12345
 #define RAND_MODULUS 2147483648
 
+typedef unsigned long int strhash;
+
 #define ht_hashf(htype, type1) \
 unsigned long int htype##_hashf(type1 rand_seed){ \
     return (RAND_MULTIPLIER * rand_seed + RAND_INCREMENT) % RAND_MODULUS; \
@@ -51,6 +53,7 @@ void htype##_add(htype *ht, type1 key, type2 val){ \
     htype##_node *a = (htype##_node*)malloc(sizeof(htype##_node)); \
     a->key = key; \
     a->val = val; \
+    a->next = NULL; \
     htype##_node *cur = ht->arr[k]; \
     if(cur == NULL) ht->arr[k] = a; \
     else { while(1) { \
@@ -112,7 +115,7 @@ void htype##_remove(htype *ht, type1 key){ \
     ht_get(htype, type1, type2) \
     ht_remove(htype, type1, type2)
 
-unsigned long int strh(char* str) {
+strhash strh(char* str) {
     unsigned long int i = 0;
     for (int j = 0; str[j]; j++)
         i += str[j] * (j + 1);
