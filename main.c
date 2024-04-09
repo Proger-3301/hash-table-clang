@@ -3,12 +3,11 @@
 
 //initializing hash tables
 init_hash_table(iiht, int, int)
-init_hash_table(lsht, unsigned long int, char*)
+init_hash_table(lsht, strhash, char*)
 
 int main()
 {
     iiht *ht = iiht_create(3);
-    system("clear");
     for(int i = 0; i < 10; i++){
         iiht_add(ht, i, i * i + i);
     }
